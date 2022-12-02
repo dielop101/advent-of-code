@@ -1,2 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Day1;
+
+//part1
+var elf = Logic.GetElfWithMostCalories(@"data\input.txt");
+Console.WriteLine(elf);
+
+//part2
+elf = Logic.GetTotalSumOfCaloriesForThreTopElfs(@"data\input.txt");
+Console.WriteLine(elf);
