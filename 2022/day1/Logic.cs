@@ -45,7 +45,10 @@ public static class Logic
                 currentElfWithCalories += int.Parse(calories);
             }
         }
-        
+
+        if (currentElfWithCalories > 0)
+            listOfCalories.Add(currentElfWithCalories);
+
         return listOfCalories.OrderByDescending(x => x).Take(3).Sum();
     }
 }

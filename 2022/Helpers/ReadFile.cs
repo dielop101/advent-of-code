@@ -4,9 +4,33 @@ public static class ReadFile
 {
     public static ICollection<string> Lines(string filepath)
     {
+        return File.ReadAllLines(filepath);
+    }
 
-        var allText = File.ReadAllText(filepath);
+    public static ICollection<ICollection<string>> LinesGroupBy(string filepath, int groupBy)
+    {
+        var allText = File.ReadAllLines(filepath);
+        int count = 0;
+        var result = new List<ICollection<string>>();
+        var subCollection = new List<string>();
+        foreach (var line in allText)
+        {
+            if (count == groupBy)
+            {
+                result.Add(subCollection);
+                count = 0;
+                subCollection = new List<string>();
+            }
 
-        return allText.Split("\r\n");
+            subCollection.Add(line);
+            count++;
+        }
+
+        if (subCollection.Count > 0)
+        {
+            result.Add(subCollection);
+        }
+
+        return result;
     }
 }
