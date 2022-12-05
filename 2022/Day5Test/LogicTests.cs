@@ -9,9 +9,17 @@ public class LogicTests
     [Test]
     public void Part1()
     {
-        var message = Logic.Part1(@"data\example.txt");
+        var message = Logic.Part(@"data\example.txt", false);
 
         message.Should().Be("CMZ");
+    }
+
+    [Test]
+    public void Part2()
+    {
+        var message = Logic.Part(@"data\example.txt", true);
+
+        message.Should().Be("MCD");
     }
 
     [Test]
@@ -89,12 +97,12 @@ public class LogicTests
     }
 
     [Test]
-    public void DoMovement()
+    public void DoMovementPart1()
     {
         var lines = ReadFile.Lines(@"data\examplemap.txt").ToArray();
         var stacks = Logic.InitStacks(lines);
 
-        Logic.DoMovement(stacks, "move 1 from 2 to 1");
+        Logic.DoMovement(stacks, "move 1 from 2 to 1", false);
 
         stacks[0].Count.Should().Be(3);
         stacks[1].Count.Should().Be(2);
@@ -102,5 +110,25 @@ public class LogicTests
 
         var moved = stacks[0].Pop();
         moved.Should().Be('D');
+    }
+
+    [Test]
+    public void DoMovementPart2()
+    {
+        var lines = ReadFile.Lines(@"data\examplemap.txt").ToArray();
+        var stacks = Logic.InitStacks(lines);
+
+        Logic.DoMovement(stacks, "move 3 from 2 to 1", true);
+
+        stacks[0].Count.Should().Be(5);
+        stacks[1].Count.Should().Be(0);
+        stacks[2].Count.Should().Be(1);
+
+        var moved = stacks[0].Pop();
+        moved.Should().Be('D');
+        moved = stacks[0].Pop();
+        moved.Should().Be('C');
+        moved = stacks[0].Pop();
+        moved.Should().Be('M');
     }
 }

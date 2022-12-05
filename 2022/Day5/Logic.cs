@@ -3,7 +3,7 @@
 namespace Day5;
 public static class Logic
 {
-    public static string Part1(string filepath)
+    public static string Part(string filepath, bool part2)
     {
         var lines = ReadFile.LinesGroupedBySpace(filepath);
         var map = lines.First();
@@ -12,23 +12,33 @@ public static class Logic
         var stacks = InitStacks(map.ToArray());
         foreach (var instruction in instructions)
         {
-            DoMovement(stacks, instruction);
+            DoMovement(stacks, instruction, part2);
         }
 
         var listOfChars = stacks.Select(x => x.Pop());
         return string.Join("", listOfChars);
     }
 
-    public static void DoMovement(Stack<char>[] stacks, string instruction)
+    public static void DoMovement(Stack<char>[] stacks, string instruction, bool part2)
     {
         (int numCrates, int stackOriginId, int stackDestId) = ReadInstruction(instruction);
 
         var stackOrigin = stacks[stackOriginId - 1];
         var stackDest = stacks[stackDestId - 1];
 
+        var listOfCrates = new List<char>();
         for (int i = 0; i < numCrates; i++)
         {
-            var crate = stackOrigin.Pop();
+            listOfCrates.Add(stackOrigin.Pop());
+        }
+
+        if (part2)
+        {
+            listOfCrates.Reverse();
+        }
+
+        foreach (var crate in listOfCrates)
+        {
             stackDest.Push(crate);
         }
     }
