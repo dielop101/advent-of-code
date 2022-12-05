@@ -33,4 +33,31 @@ public static class ReadFile
 
         return result;
     }
+
+    public static ICollection<ICollection<string>> LinesGroupedBySpace(string filepath)
+    {
+        var allText = File.ReadAllLines(filepath);
+        var result = new List<ICollection<string>>();
+        var subCollection = new List<string>();
+
+        foreach (var line in allText)
+        {
+            if (string.IsNullOrEmpty(line))
+            {
+                result.Add(subCollection);
+                subCollection = new List<string>();
+            }
+            else
+            {
+                subCollection.Add(line);
+            }
+        }
+
+        if (subCollection.Count > 0)
+        {
+            result.Add(subCollection);
+        }
+
+        return result;
+    }
 }
