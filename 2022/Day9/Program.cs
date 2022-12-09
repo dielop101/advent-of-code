@@ -4,5 +4,12 @@
 //(prev: 5990 - your answer is too low)
 //6008
 //(prev: 10000 - your answer is too high)
-var total = Logic.Part1(@"data\input.txt");
+//6044
+var total = LogicPart1.Part1(@"data\input.txt");
+Console.WriteLine(total);
+
+//part2
+//1623 - too low
+//2841 - too high
+total = LogicPart2.Part2(@"data\input.txt");
 Console.WriteLine(total);
