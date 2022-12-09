@@ -49,15 +49,18 @@ public static class LogicPart2
             Point? previousPoint = null;
             foreach (var point in points)
             {
-                if (previousPoint is null || Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1)
+                if (previousPoint is null)
                 {
+                    //head
                     point.CurrentY = coordinates.y > 0 ? point.CurrentY + 1 : point.CurrentY - 1;
-                    //point.CurrentX = previousPoint?.CurrentX ?? point.CurrentX;
-                    if (previousPoint is not null && Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
-                    {
-                        var isSum = point.CurrentX < previousPoint.CurrentX;
-                        point.CurrentX = isSum ? point.CurrentX + 1 : point.CurrentX - 1;
-                    }
+                    point.Coordinates.Add((point.CurrentX, point.CurrentY));
+                }
+                else if (Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1)
+                {
+                    //tails
+                    var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
+                    point.CurrentY = beforePreviousPoint.y;
+                    point.CurrentX = beforePreviousPoint.x;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
@@ -72,15 +75,18 @@ public static class LogicPart2
             Point? previousPoint = null;
             foreach (var point in points)
             {
-                if (previousPoint is null || Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
+                if (previousPoint is null)
                 {
+                    //head
                     point.CurrentX = coordinates.x > 0 ? point.CurrentX + 1 : point.CurrentX - 1;
-                    //point.CurrentY = previousPoint?.CurrentY ?? point.CurrentY;
-                    if (previousPoint is not null && Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1)
-                    {
-                        var isSum = point.CurrentY < previousPoint.CurrentY;
-                        point.CurrentY = isSum ? point.CurrentY + 1 : point.CurrentY - 1;
-                    }
+                    point.Coordinates.Add((point.CurrentX, point.CurrentY));
+                }
+                else if (Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
+                {
+                    //tails
+                    var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
+                    point.CurrentY = beforePreviousPoint.y;
+                    point.CurrentX = beforePreviousPoint.x;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
