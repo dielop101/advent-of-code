@@ -47,6 +47,7 @@ public static class LogicPart2
         while (Math.Abs(coordinates.y) >= movements)
         {
             Point? previousPoint = null;
+            int? x = null, y = null;
             foreach (var point in points)
             {
                 if (previousPoint is null)
@@ -55,12 +56,30 @@ public static class LogicPart2
                     point.CurrentY = coordinates.y > 0 ? point.CurrentY + 1 : point.CurrentY - 1;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
-                else if (Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1)
+                else if (Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1 ||
+                    Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
                 {
                     //tails
-                    var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
-                    point.CurrentY = beforePreviousPoint.y;
-                    point.CurrentX = beforePreviousPoint.x;
+                    if (!x.HasValue || !y.HasValue)
+                    {
+                        //first tail
+                        var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
+
+                        x = beforePreviousPoint.x - point.CurrentX;
+                        y = beforePreviousPoint.y - point.CurrentY;
+
+                        point.CurrentY = beforePreviousPoint.y;
+                        point.CurrentX = beforePreviousPoint.x;
+
+                        if (x == 0) x = null;
+                        if (y == 0) y = null;
+                    }
+                    else
+                    {
+                        //next tails
+                        point.CurrentY += y.Value;
+                        point.CurrentX += x.Value;
+                    }
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
@@ -73,6 +92,7 @@ public static class LogicPart2
         while (Math.Abs(coordinates.x) >= movements)
         {
             Point? previousPoint = null;
+            int? x = null, y = null;
             foreach (var point in points)
             {
                 if (previousPoint is null)
@@ -81,12 +101,28 @@ public static class LogicPart2
                     point.CurrentX = coordinates.x > 0 ? point.CurrentX + 1 : point.CurrentX - 1;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
-                else if (Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
+                else if (Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1 ||
+                    Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
                 {
-                    //tails
-                    var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
-                    point.CurrentY = beforePreviousPoint.y;
-                    point.CurrentX = beforePreviousPoint.x;
+                    if (!x.HasValue || !y.HasValue)
+                    {
+                        //first tail
+                        var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
+                        x = beforePreviousPoint.x - point.CurrentX;
+                        y = beforePreviousPoint.y - point.CurrentY;
+
+                        point.CurrentY = beforePreviousPoint.y;
+                        point.CurrentX = beforePreviousPoint.x;
+
+                        if (x == 0) x = null;
+                        if (y == 0) y = null;
+                    }
+                    else
+                    {
+                        //next tails
+                        point.CurrentY += y.Value;
+                        point.CurrentX += x.Value;
+                    }
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
