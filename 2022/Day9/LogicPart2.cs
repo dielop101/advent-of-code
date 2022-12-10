@@ -27,8 +27,8 @@ public static class LogicPart2
         {
             Movements(allPoints, instruction);
         }
-
-        return RemoveRepeatedCoordinates(allPoints[allPoints.Count - 1].Coordinates).Count;
+        var clean = RemoveRepeatedCoordinates(allPoints[allPoints.Count - 1].Coordinates);
+        return clean.Count;
     }
 
     public static List<(int x, int y)> RemoveRepeatedCoordinates(IEnumerable<(int x, int y)> coordinates)
@@ -47,7 +47,6 @@ public static class LogicPart2
         while (Math.Abs(coordinates.y) >= movements)
         {
             Point? previousPoint = null;
-            int? x = null, y = null;
             foreach (var point in points)
             {
                 if (previousPoint is null)
@@ -60,26 +59,10 @@ public static class LogicPart2
                     Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
                 {
                     //tails
-                    if (!x.HasValue || !y.HasValue)
-                    {
-                        //first tail
-                        var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
+                    var (x, y) = NewPoint((previousPoint.CurrentX, previousPoint.CurrentY), (point.CurrentX, point.CurrentY));
 
-                        x = beforePreviousPoint.x - point.CurrentX;
-                        y = beforePreviousPoint.y - point.CurrentY;
-
-                        point.CurrentY = beforePreviousPoint.y;
-                        point.CurrentX = beforePreviousPoint.x;
-
-                        if (x == 0) x = null;
-                        if (y == 0) y = null;
-                    }
-                    else
-                    {
-                        //next tails
-                        point.CurrentY += y.Value;
-                        point.CurrentX += x.Value;
-                    }
+                    point.CurrentX = x;
+                    point.CurrentY = y;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
@@ -92,7 +75,6 @@ public static class LogicPart2
         while (Math.Abs(coordinates.x) >= movements)
         {
             Point? previousPoint = null;
-            int? x = null, y = null;
             foreach (var point in points)
             {
                 if (previousPoint is null)
@@ -104,32 +86,51 @@ public static class LogicPart2
                 else if (Math.Abs(previousPoint.CurrentY - point.CurrentY) > 1 ||
                     Math.Abs(previousPoint.CurrentX - point.CurrentX) > 1)
                 {
-                    if (!x.HasValue || !y.HasValue)
-                    {
-                        //first tail
-                        var beforePreviousPoint = previousPoint.Coordinates[previousPoint.Coordinates.Count - 2];
-                        x = beforePreviousPoint.x - point.CurrentX;
-                        y = beforePreviousPoint.y - point.CurrentY;
+                    var (x, y) = NewPoint((previousPoint.CurrentX, previousPoint.CurrentY), (point.CurrentX, point.CurrentY));
 
-                        point.CurrentY = beforePreviousPoint.y;
-                        point.CurrentX = beforePreviousPoint.x;
-
-                        if (x == 0) x = null;
-                        if (y == 0) y = null;
-                    }
-                    else
-                    {
-                        //next tails
-                        point.CurrentY += y.Value;
-                        point.CurrentX += x.Value;
-                    }
+                    point.CurrentX = x;
+                    point.CurrentY = y;
                     point.Coordinates.Add((point.CurrentX, point.CurrentY));
                 }
 
                 previousPoint = point;
             }
+
+            //PrintPoints(points);
             movements++;
         }
+    }
+
+    public static (int x, int y) NewPoint((int x, int y) beforePoint, (int x, int y) currentPoint)
+    {
+        int x, y;
+        if (beforePoint.x > currentPoint.x)
+        {
+            x = currentPoint.x + 1;
+        }
+        else if (beforePoint.x < currentPoint.x)
+        {
+            x = currentPoint.x - 1;
+        }
+        else
+        {
+            x = currentPoint.x;
+        }
+
+        if (beforePoint.y > currentPoint.y)
+        {
+            y = currentPoint.y + 1;
+        }
+        else if (beforePoint.y < currentPoint.y)
+        {
+            y = currentPoint.y - 1;
+        }
+        else
+        {
+            y = currentPoint.y;
+        }
+
+        return (x, y);
     }
 
     public static (int x, int y) ConvertInstructionToCoordinates(string instruction)
@@ -143,5 +144,52 @@ public static class LogicPart2
             "L" => (-int.Parse(instructionSplitted[1]), 0),
             _ => throw new Exception("Cannot convert instruction to coordinates"),
         };
+    }
+
+    private static void PrintPoints(List<Point> points)
+    {
+        string[][] map = new string[][]
+        {
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+        new string[] { ".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",".",},
+
+        };
+
+        foreach (var point in points)
+        {
+            if (map[point.CurrentY + 10][point.CurrentX + 10] == ".")
+                map[point.CurrentY + 10][point.CurrentX + 10] = point.Name;
+        }
+
+        foreach (var array in map.Reverse())
+        {
+            foreach (var item in array)
+            {
+                Console.Write(item);
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine();
     }
 }

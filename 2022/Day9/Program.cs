@@ -12,5 +12,6 @@ Console.WriteLine(total);
 //1623 - too low
 //2841 - too high
 //2133 - too low
+//2366 - close
 total = LogicPart2.Part2(@"data\input.txt");
 Console.WriteLine(total);
