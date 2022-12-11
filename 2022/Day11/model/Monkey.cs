@@ -34,8 +34,14 @@ public class Monkey
             InspectsItems++;
             var newItem = DoOperation(item);
 
+            var mod = newItem % DivisibleBy;
             if (_handicapWorryLevel)
                 newItem = Math.Floor(newItem / 3);
+            else
+            {
+                var divisorLimit = monkeys.Aggregate(1, (c, m) => c * m.DivisibleBy);
+                newItem %= divisorLimit;
+            }
 
             if (newItem % DivisibleBy == 0)
             {
