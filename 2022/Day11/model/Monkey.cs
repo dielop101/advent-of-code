@@ -41,6 +41,7 @@ public class Monkey
             }
             else
             {
+                //reducir el número para que sea modulable entre todos los divisibles que existen
                 var divisorLimit = monkeys.Aggregate(1, (c, m) => c * m.DivisibleBy);
                 newItem %= divisorLimit;
             }
