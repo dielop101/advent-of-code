@@ -10,11 +10,11 @@ public class MonkeyTest
     {
         var monkey0 = new Monkey("Monkey 0:", "Starting items: 79, 98", "Operation: new = old * 19", "Test: divisible by 23",
             "If true: throw to monkey 2",
-            "If false: throw to monkey 1");
+            "If false: throw to monkey 1", true);
 
         var monkey1 = new Monkey("Monkey 1:", "Starting items: 5, 6", "", "Test: divisible by 23",
             "If true: throw to monkey 1",
-            "If false: throw to monkey 2");
+            "If false: throw to monkey 2", true);
 
         var allMonkeys = new List<Monkey>
         {
@@ -33,12 +33,11 @@ public class MonkeyTest
     [TestCase("new = old + 19", 0, 19)]
     [TestCase("new = old - 19", 0, -19)]
     [TestCase("new = old * old", 5, 25)]
-    [TestCase("new = old / 3", 1501, 500)]
     public void DoOperation(string instruction, int old, int resultExpected)
     {
         var monkey = new Monkey("Monkey 0:", "Starting items: 79, 98", instruction, "Test: divisible by 23",
             "If true: throw to monkey 2",
-            "If false: throw to monkey 3");
+            "If false: throw to monkey 3", true);
 
         var result = monkey.DoOperation(old);
 
@@ -53,7 +52,7 @@ public class MonkeyTest
             "Operation: new = old * 19", 
             "Test: divisible by 23", 
             "If true: throw to monkey 2",
-            "If false: throw to monkey 3");
+            "If false: throw to monkey 3", true);
 
         monkey.Id.Should().Be(1);
         monkey.MonkeyTrueId.Should().Be(2);

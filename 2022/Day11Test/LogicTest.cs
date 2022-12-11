@@ -4,17 +4,18 @@ using FluentAssertions;
 namespace Day11Test;
 public class LogicTest
 {
-    [Test]
-    public void Part1()
+    [TestCase(20, true, 10605)]
+    [TestCase(10000, false, 2713310158)]
+    public void Part1(int rounds, bool handicap, double result)
     {
-        var total = Logic.Part1(@"data\example.txt", 20);
-        total.Should().Be(10605);
+        var total = Logic.Part1(@"data\example.txt", rounds, handicap);
+        total.Should().Be(result);
     }
 
     [Test]
     public void DoRounds()
     {
-        var monkeys = Logic.DoRounds(@"data\example.txt", 20);
+        var monkeys = Logic.DoRounds(@"data\example.txt", 20, true);
         monkeys[0].Items.Should().HaveCount(5);
         monkeys[1].Items.Should().HaveCount(5);
         monkeys[2].Items.Should().HaveCount(0);
@@ -34,9 +35,31 @@ public class LogicTest
     }
 
     [Test]
+    public void DoRoundsPart2()
+    {
+        var monkeys = Logic.DoRounds(@"data\example.txt", 1, false);
+        monkeys[0].InspectsItems.Should().Be(2);
+        monkeys[1].InspectsItems.Should().Be(4);
+        monkeys[2].InspectsItems.Should().Be(3);
+        monkeys[3].InspectsItems.Should().Be(6);
+
+        monkeys = Logic.DoRounds(@"data\example.txt", 20, false);
+        monkeys[0].InspectsItems.Should().Be(99);
+        monkeys[1].InspectsItems.Should().Be(97);
+        monkeys[2].InspectsItems.Should().Be(8);
+        monkeys[3].InspectsItems.Should().Be(103);
+
+        //monkeys = Logic.DoRounds(@"data\example.txt", 1000, false);
+        //monkeys[0].InspectsItems.Should().Be(5204);
+        //monkeys[1].InspectsItems.Should().Be(4792);
+        //monkeys[2].InspectsItems.Should().Be(199);
+        //monkeys[3].InspectsItems.Should().Be(5192);
+    }
+
+    [Test]
     public void InitMonkeys()
     {
-        var monkeys = Logic.InitMonkeys(@"data\example.txt");
+        var monkeys = Logic.InitMonkeys(@"data\example.txt", true);
         monkeys.Should().HaveCount(4);
     }
 }
