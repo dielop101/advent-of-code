@@ -3,14 +3,13 @@ using FluentAssertions;
 
 namespace Day10Test;
 
-public class LogicTests
+public class LogicPart1Tests
 {
-    [TestCase(@"data\example1.txt", -5)]
-    [TestCase(@"data\example2.txt", 13140)]
-    public void Part1(string filepath, int total)
+    [Test]
+    public void Part1()
     {
-        var result = Logic.Part1(filepath);
-        result.Should().Be(total);
+        var result = LogicPart1.Part1(@"data\example.txt");
+        result.Should().Be(13140);
     }
 
     [TestCase("noop", 1, 0)]
@@ -18,7 +17,7 @@ public class LogicTests
     [TestCase("addx -5", 2, -5)]
     public void OperateInstruction(string instruction, int numCycles, int valueX)
     {
-        var (resultNumCycles, resultValueX) = Logic.OperateInstruction(instruction);
+        var (resultNumCycles, resultValueX) = LogicPart1.OperateInstruction(instruction);
         resultNumCycles.Should().Be(numCycles);
         resultValueX.Should().Be(valueX);
     }
