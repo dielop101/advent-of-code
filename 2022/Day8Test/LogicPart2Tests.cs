@@ -1,4 +1,4 @@
-using Day8;
+using _2022.Day8;
 using FluentAssertions;
 using Helpers;
 

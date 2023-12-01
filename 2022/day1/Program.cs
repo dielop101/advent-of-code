@@ -1,4 +1,4 @@
-﻿using Day1;
+﻿using _2022.Day1;
 
 //part1
 var elf = Logic.GetElfWithMostCalories(@"data\input.txt");

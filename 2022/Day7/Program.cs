@@ -1,4 +1,4 @@
-﻿using Day7;
+﻿using _2022.Day7;
 
 //part1
 var totalSize = Logic.Part1(@"data\input.txt");

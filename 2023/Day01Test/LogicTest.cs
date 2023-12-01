@@ -1,6 +1,6 @@
 using Helpers;
 
-namespace Day01;
+namespace _2023.Day01;
 
 public class LogicTest
 {

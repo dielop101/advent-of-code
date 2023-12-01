@@ -1,4 +1,4 @@
-﻿using Day5;
+﻿using _2022.Day5;
 
 //part1
 var message = Logic.Part(@"data\input.txt", false);

@@ -1,4 +1,4 @@
-using Day6;
+using _2022.Day6;
 using FluentAssertions;
 
 namespace TemplateTest;

@@ -1,7 +1,7 @@
 ﻿using Day9.model;
 using Helpers;
 
-namespace Day9;
+namespace _2022.Day9;
 
 public static class LogicPart2
 {

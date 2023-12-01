@@ -1,7 +1,7 @@
 ﻿
 using Helpers;
 
-namespace Day3;
+namespace _2022.Day3;
 public static class LogicPart1
 {
     public static int Part1(string filepath)

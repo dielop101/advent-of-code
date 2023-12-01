@@ -1,4 +1,4 @@
-﻿using Day9;
+﻿using _2022.Day9;
 
 //part1
 //(prev: 5990 - your answer is too low)

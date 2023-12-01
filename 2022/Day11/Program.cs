@@ -1,4 +1,4 @@
-﻿using Day11;
+﻿using _2022.Day11;
 
 var total = Logic.Part1(@"data\input.txt", 20, true);
 Console.WriteLine(total);

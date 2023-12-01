@@ -1,4 +1,4 @@
-﻿using Day3;
+﻿using _2022.Day3;
 
 //part1
 var totalScore = LogicPart1.Part1(@"data\input.txt");

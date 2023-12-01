@@ -1,7 +1,7 @@
 ﻿using Day11.model;
 using Helpers;
 
-namespace Day11;
+namespace _2022.Day11;
 
 public static class Logic
 {

@@ -1,6 +1,6 @@
 ﻿using Helpers;
 
-namespace Day1;
+namespace _2022.Day1;
 public static class Logic
 {
     public static int GetElfWithMostCalories(string filepath)

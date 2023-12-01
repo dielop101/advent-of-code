@@ -1,4 +1,4 @@
-﻿using Day11;
+﻿using _2022.Day11;
 using FluentAssertions;
 
 namespace Day11Test;

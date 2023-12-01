@@ -1,6 +1,6 @@
-using Day1;
+using _2022.Day1;
 
-namespace Day1Test;
+namespace _2022.Day1Test;
 
 public class LogicTest
 {

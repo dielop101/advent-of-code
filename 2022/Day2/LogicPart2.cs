@@ -1,6 +1,6 @@
 ﻿using Helpers;
 
-namespace Day2;
+namespace _2022.Day2;
 public static class LogicPart2
 {
     public static int TotalScore(string filepath)

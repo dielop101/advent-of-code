@@ -1,4 +1,4 @@
-using Day9;
+using _2022.Day9;
 using Day9.model;
 using FluentAssertions;
 

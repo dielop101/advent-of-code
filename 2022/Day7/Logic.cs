@@ -3,7 +3,7 @@ using Helpers;
 using OneOf;
 using Directory = Day7.models.Directory;
 
-namespace Day7;
+namespace _2022.Day7;
 
 public static class Logic
 {
