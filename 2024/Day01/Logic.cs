@@ -22,16 +22,9 @@ public static class Logic
 
     public static int CalculatePath(List<int> list1, List<int> list2)
     {
-        var orderArray1 = list1.OrderBy(x => x).ToArray();
-        var orderArray2 = list2.OrderBy(x => x).ToArray();
-
-        var total = 0;
-        for (int i = 0; i < orderArray1.Length; i++)
-        {
-            total += Math.Abs(orderArray1[i] - orderArray2[i]);
-        }
-
-        return total;
+        return list1.OrderBy(x => x)
+                       .Zip(list2.OrderBy(x => x), (a, b) => Math.Abs(a - b))
+                       .Sum();
     }
 
     public static int CalculateSimilarity(List<int> list1, List<int> list2)
