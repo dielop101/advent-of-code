@@ -36,18 +36,6 @@ public static class Logic
 
     public static int CalculateSimilarity(List<int> list1, List<int> list2)
     {
-        var total = 0;
-        foreach (var item1 in list1)
-        {
-            var repeated = 0;
-            foreach (var item2 in list2)
-            {
-                if (item2 == item1)
-                    repeated++;
-            }
-            total += item1 * repeated;
-        }
-
-        return total;
+        return list1.Sum(x => list2.Count(y => y == x) * x);
     }
 }
